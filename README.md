@@ -19,14 +19,5 @@
 
 目前共有123首诗。
 
-年份	数量
-2019	4
-2020	31
-2021	30
-2022	9
-2023	10
-2024	19
-2025	16
-2026	4
-总计	123
+
 <img width="543" height="281" alt="image" src="https://github.com/user-attachments/assets/570c481f-fa60-4b57-930d-a557764a05e8" />
