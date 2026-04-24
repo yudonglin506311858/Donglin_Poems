@@ -26,6 +26,4 @@
 
 目前共有181首诗。
 
-<img width="255" height="321" alt="image" src="https://github.com/user-attachments/assets/b3df892a-40ce-4bfc-9fe9-0cac29f98ea7" />
-
 
