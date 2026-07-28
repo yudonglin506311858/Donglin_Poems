@@ -1,0 +1,451 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>东林的诗集</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@300;400;500;600;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#e7d9ba;        /* 仿古宣纸 */
+  --paper-hi:#efe4ca;     /* 受光的纸 */
+  --paper-lo:#dbc9a2;     /* 纸的暗部/卡片 */
+  --edge:#cdb888;         /* 纸边 */
+  --ink:#2b2320;          /* 墨 */
+  --ink-2:#5a4d40;        /* 淡墨/次要 */
+  --ink-3:#8a7a63;        /* 更淡 */
+  --zhu:#9e2b23;          /* 朱砂/印泥 */
+  --zhu-soft:rgba(158,43,35,.16);
+  --gold:#8a6a3b;         /* 赭石/老金 */
+  --moon:#f6efdb;         /* 月华 */
+  --disp:"Ma Shan Zheng",serif;
+  --kai:"Kaiti SC","STKaiti","KaiTi","楷体","LXGW WenKai","Noto Serif SC",serif;
+  --song:"Noto Serif SC","Songti SC","STSong","SimSun",serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;color:var(--ink);
+  font-family:var(--song);
+  line-height:1.85;
+  background:var(--paper);
+  /* 纸纤维质感：叠加细噪点 + 柔和污渍 */
+  background-image:
+    radial-gradient(120% 80% at 78% 8%, rgba(246,239,219,.55), transparent 55%),
+    radial-gradient(90% 60% at 12% 88%, rgba(200,178,132,.35), transparent 60%),
+    radial-gradient(60% 50% at 95% 95%, rgba(120,96,58,.10), transparent 60%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+  background-attachment:fixed,fixed,fixed,fixed;
+}
+a{color:inherit}
+::selection{background:var(--zhu-soft)}
+
+/* ---------- 通用容器 ---------- */
+.wrap{max-width:1120px;margin:0 auto;padding:0 26px}
+.rule{height:1px;background:linear-gradient(90deg,transparent,var(--edge),transparent);border:0;margin:0}
+
+/* ---------- 卷首 HERO ---------- */
+.hero{position:relative;overflow:hidden;padding:82px 0 54px}
+.moon{
+  position:absolute;top:-90px;right:-40px;width:360px;height:360px;border-radius:50%;
+  background:
+    radial-gradient(circle at 38% 36%, var(--moon), rgba(246,239,219,.35) 58%, transparent 72%);
+  box-shadow:inset -18px -22px 46px rgba(180,158,112,.35);
+  pointer-events:none;filter:blur(.3px);opacity:.9;
+}
+.moon::after{ /* 月面淡影 */
+  content:"";position:absolute;inset:14% 20% 30% 22%;border-radius:50%;
+  background:radial-gradient(circle at 60% 40%, transparent 60%, rgba(160,140,100,.10));
+}
+.hero-inner{position:relative;z-index:2}
+.eyebrow{font-family:var(--kai);letter-spacing:.34em;color:var(--zhu);font-size:14px;margin:0 0 20px}
+.title{
+  font-family:var(--disp);font-weight:400;color:var(--ink);
+  font-size:clamp(58px,12vw,132px);line-height:.98;margin:0;letter-spacing:.04em;
+  text-shadow:0 1px 0 rgba(255,250,235,.35);
+}
+.title .dot{color:var(--zhu)}
+.meta{font-family:var(--kai);color:var(--ink-2);font-size:clamp(15px,2.4vw,19px);letter-spacing:.22em;margin:22px 0 0}
+.couplet{
+  margin:40px 0 8px;font-family:var(--kai);color:var(--ink);
+  font-size:clamp(20px,3.4vw,30px);line-height:2.2;letter-spacing:.06em;
+}
+.couplet .src{display:block;font-size:15px;color:var(--ink-3);letter-spacing:.14em;margin-top:12px}
+.preface{
+  margin:38px 0 0;max-width:640px;color:var(--ink-2);font-size:15.5px;line-height:2.1;
+  font-family:var(--kai);
+}
+.preface em{font-style:normal;color:var(--zhu);border-bottom:1px solid var(--zhu-soft)}
+.scroll-cue{margin-top:44px;font-family:var(--kai);color:var(--ink-3);letter-spacing:.3em;font-size:13px}
+.scroll-cue span{display:inline-block;animation:bob 2.4s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+
+/* ---------- 意象 STRIP ---------- */
+.motifs{padding:40px 0 6px}
+.motifs h2,.index h2{font-family:var(--kai);font-weight:400;color:var(--ink-3);font-size:13px;letter-spacing:.4em;margin:0 0 20px}
+.chip-row{display:flex;flex-wrap:wrap;gap:12px}
+.chip{
+  font-family:var(--kai);cursor:pointer;user-select:none;
+  background:var(--paper-hi);border:1px solid var(--edge);color:var(--ink);
+  padding:9px 16px;border-radius:2px;font-size:16px;letter-spacing:.08em;
+  display:inline-flex;align-items:baseline;gap:8px;transition:all .18s ease;
+}
+.chip .ct{font-family:var(--song);font-size:12px;color:var(--ink-3)}
+.chip:hover{border-color:var(--gold);background:var(--paper)}
+.chip.on{background:var(--zhu);color:var(--moon);border-color:var(--zhu)}
+.chip.on .ct{color:rgba(246,239,219,.7)}
+.chip.moon-chip{border-color:var(--zhu);color:var(--zhu)}
+.chip.moon-chip.on{color:var(--moon)}
+
+/* ---------- 目录 INDEX ---------- */
+.index{padding:48px 0 20px}
+.index-head{display:flex;flex-wrap:wrap;gap:20px 28px;align-items:flex-end;justify-content:space-between;margin-bottom:8px}
+.years{display:flex;flex-wrap:wrap;gap:4px 2px}
+.year-btn{
+  font-family:var(--song);cursor:pointer;background:none;border:0;color:var(--ink-2);
+  padding:7px 13px;font-size:15px;letter-spacing:.16em;border-radius:2px;transition:all .16s;
+  position:relative;
+}
+.year-btn .n{font-size:11px;color:var(--ink-3);margin-left:5px}
+.year-btn:hover{color:var(--ink)}
+.year-btn.on{color:var(--zhu)}
+.year-btn.on::after{content:"";position:absolute;left:13px;right:13px;bottom:2px;height:2px;background:var(--zhu)}
+.search{position:relative}
+.search input{
+  font-family:var(--kai);font-size:15px;color:var(--ink);background:var(--paper-hi);
+  border:1px solid var(--edge);border-radius:2px;padding:9px 14px 9px 34px;width:200px;
+  letter-spacing:.08em;outline:none;transition:border-color .18s;
+}
+.search input:focus{border-color:var(--gold)}
+.search input::placeholder{color:var(--ink-3)}
+.search .ico{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--ink-3);font-size:14px;font-family:var(--kai)}
+
+.count-line{font-family:var(--kai);color:var(--ink-3);font-size:13px;letter-spacing:.14em;margin:22px 0 24px}
+
+/* 笺 grid（多列瀑布流） */
+.grid{columns:3;column-gap:22px}
+@media(max-width:860px){.grid{columns:2}}
+@media(max-width:560px){.grid{columns:1}}
+.slip{
+  break-inside:avoid;margin:0 0 22px;cursor:pointer;position:relative;
+  background:linear-gradient(180deg,var(--paper-hi),var(--paper-lo));
+  border:1px solid var(--edge);border-radius:2px;padding:22px 22px 20px;
+  transition:transform .2s ease,box-shadow .2s ease,border-color .2s;
+  box-shadow:0 1px 0 rgba(255,250,235,.4) inset, 0 6px 16px -12px rgba(60,40,20,.4);
+}
+.slip:hover{transform:translateY(-3px);border-color:var(--gold);box-shadow:0 14px 30px -18px rgba(60,40,20,.55)}
+.slip:focus-visible{outline:2px solid var(--zhu);outline-offset:3px}
+.slip .st{font-family:var(--disp);font-size:26px;line-height:1.25;color:var(--ink);margin:0 0 2px;letter-spacing:.03em}
+.slip .sd{font-family:var(--song);font-size:12px;color:var(--ink-3);letter-spacing:.12em;margin-bottom:12px}
+.slip .sfirst{font-family:var(--kai);font-size:15px;color:var(--ink-2);line-height:1.95;
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.slip .dots{position:absolute;top:20px;right:20px;display:flex;gap:5px}
+.slip .dot{width:6px;height:6px;border-radius:50%;background:var(--gold);opacity:.5}
+.slip .dot.moon{background:var(--zhu);opacity:.85}
+.slip .long{position:absolute;bottom:16px;right:18px;font-family:var(--kai);font-size:11px;
+  color:var(--zhu);border:1px solid var(--zhu-soft);border-radius:2px;padding:1px 6px;letter-spacing:.1em}
+.empty{font-family:var(--kai);color:var(--ink-3);font-size:16px;text-align:center;padding:60px 0;letter-spacing:.1em}
+
+/* ---------- 页脚 colophon ---------- */
+.colophon{padding:60px 0 74px;text-align:center;font-family:var(--kai);color:var(--ink-3)}
+.colophon .seal-line{color:var(--zhu);font-size:15px;letter-spacing:.2em;margin-bottom:14px}
+.colophon p{margin:6px 0;font-size:13.5px;line-height:2;letter-spacing:.1em}
+
+/* ---------- 读诗 READER 覆层 ---------- */
+.reader{position:fixed;inset:0;z-index:60;display:none;align-items:center;justify-content:center;
+  background:rgba(38,30,22,.5);backdrop-filter:blur(3px);padding:24px}
+.reader.open{display:flex}
+.sheet{
+  position:relative;width:min(760px,94vw);max-height:90vh;overflow:auto;
+  background:linear-gradient(180deg,var(--paper-hi),var(--paper));
+  border:1px solid var(--edge);border-radius:3px;
+  box-shadow:0 30px 80px -30px rgba(20,12,4,.7), 0 2px 0 rgba(255,250,235,.5) inset;
+  padding:46px 40px 40px;
+  /* 朱丝栏：等距淡红竖线 */
+  background-image:
+    linear-gradient(180deg,var(--paper-hi),var(--paper)),
+    repeating-linear-gradient(90deg, transparent 0, transparent 43px, var(--zhu-soft) 43px, var(--zhu-soft) 44px);
+  background-blend-mode:normal;
+}
+.sheet .r-moon{position:absolute;top:26px;left:50%;transform:translateX(-50%);width:140px;height:140px;border-radius:50%;
+  background:radial-gradient(circle at 42% 40%,rgba(246,239,219,.7),transparent 68%);pointer-events:none;opacity:.6}
+.r-top{position:relative;z-index:2;display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:8px}
+.r-title{font-family:var(--disp);font-size:clamp(30px,6vw,46px);line-height:1.1;margin:0;color:var(--ink);letter-spacing:.04em}
+.r-date{font-family:var(--song);font-size:13px;color:var(--ink-3);letter-spacing:.14em;margin-top:8px}
+.r-tools{display:flex;gap:6px;flex-shrink:0}
+.r-btn{font-family:var(--kai);cursor:pointer;background:var(--paper);border:1px solid var(--edge);
+  color:var(--ink-2);border-radius:2px;padding:6px 11px;font-size:14px;letter-spacing:.08em;transition:all .16s}
+.r-btn:hover{border-color:var(--gold);color:var(--ink)}
+.r-btn.on{background:var(--zhu);color:var(--moon);border-color:var(--zhu)}
+
+.poem{position:relative;z-index:2;margin:26px 0 8px}
+/* 竖排 */
+.poem.v{writing-mode:vertical-rl;text-orientation:upright;
+  display:flex;justify-content:center;gap:.2em;max-height:62vh;overflow:auto hidden;padding-bottom:6px}
+.poem.v .pl{font-family:var(--kai);font-size:clamp(19px,3.6vw,25px);line-height:2;letter-spacing:.14em;color:var(--ink)}
+/* 横排 */
+.poem.h{text-align:center}
+.poem.h .pl{font-family:var(--kai);font-size:clamp(18px,3.4vw,24px);line-height:2.5;letter-spacing:.1em;color:var(--ink)}
+
+.seal{position:relative;z-index:2;margin:22px auto 4px;width:58px;height:58px;border:2px solid var(--zhu);
+  border-radius:4px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  color:var(--zhu);font-family:var(--song);font-weight:600;line-height:1.05;font-size:20px;
+  transform:rotate(-3deg);box-shadow:0 0 0 3px rgba(158,43,35,.06);opacity:.9}
+.seal span{display:block}
+
+.r-nav{position:relative;z-index:2;display:flex;justify-content:space-between;align-items:center;
+  margin-top:26px;padding-top:18px;border-top:1px solid var(--edge)}
+.nav-btn{font-family:var(--kai);cursor:pointer;background:none;border:0;color:var(--ink-2);
+  font-size:15px;letter-spacing:.1em;padding:6px 4px;transition:color .16s}
+.nav-btn:hover:not(:disabled){color:var(--zhu)}
+.nav-btn:disabled{opacity:.3;cursor:default}
+.nav-mid{font-family:var(--song);font-size:12px;color:var(--ink-3);letter-spacing:.12em}
+.r-close{position:absolute;top:14px;right:16px;z-index:3;cursor:pointer;background:none;border:0;
+  font-family:var(--kai);font-size:18px;color:var(--ink-3);line-height:1;padding:6px;transition:color .16s}
+.r-close:hover{color:var(--zhu)}
+
+/* 入场动画 */
+.fade-up{opacity:0;transform:translateY(14px);animation:fadeUp .8s ease forwards}
+@keyframes fadeUp{to{opacity:1;transform:none}}
+.poem .pl{opacity:0;animation:inkIn .5s ease forwards}
+@keyframes inkIn{from{opacity:0;filter:blur(2px)}to{opacity:1;filter:none}}
+
+@media(prefers-reduced-motion:reduce){
+  *{animation-duration:.001s!important;animation-iteration-count:1!important}
+  .fade-up{opacity:1;transform:none}
+  .poem .pl{opacity:1}
+}
+@media(max-width:560px){
+  .hero{padding:64px 0 40px}
+  .moon{width:220px;height:220px;top:-50px;right:-30px}
+  .sheet{padding:40px 22px 30px}
+  .grid{column-gap:0}
+}
+</style>
+
+<div class="hero">
+  <div class="moon"></div>
+  <div class="wrap hero-inner">
+    <p class="eyebrow fade-up">余东林 · 旧体诗集</p>
+    <h1 class="title fade-up" style="animation-delay:.08s">东林的诗集<span class="dot">.</span></h1>
+    <p class="meta fade-up" style="animation-delay:.16s">一八八首　·　二〇一九—二〇二六</p>
+    <div class="couplet fade-up" id="couplet" style="animation-delay:.28s"></div>
+    <p class="preface fade-up" style="animation-delay:.4s">
+      在这个诗歌已死的时代，还笨拙地以诗言意，不可不说是<em>复古的生活方式</em>。宏大时代下每个平凡普通人的声音，谁说千百年以后，不会被后人拾起来细细品味呢？
+    </p>
+    <p class="scroll-cue fade-up" style="animation-delay:.52s"><span>翻卷　▽</span></p>
+  </div>
+</div>
+
+<hr class="rule">
+
+<div class="wrap motifs">
+  <h2>意 象</h2>
+  <div class="chip-row" id="chips"></div>
+</div>
+
+<div class="wrap index" id="index">
+  <div class="index-head">
+    <div class="years" id="years"></div>
+    <div class="search">
+      <span class="ico">觅</span>
+      <input id="q" type="text" placeholder="觅句　题目或诗中一字" aria-label="搜索诗句">
+    </div>
+  </div>
+  <div class="count-line" id="countline"></div>
+  <div class="grid" id="grid"></div>
+</div>
+
+<hr class="rule">
+<div class="wrap colophon">
+  <div class="seal-line">余　东　林</div>
+  <p>诗以言志，歌以咏怀，文以载道。</p>
+  <p>全集一八八首，历二〇一九至二〇二六，凡八载。月出一百二十首之中。</p>
+</div>
+
+<!-- 读诗覆层 -->
+<div class="reader" id="reader" role="dialog" aria-modal="true" aria-label="读诗">
+  <div class="sheet" id="sheet">
+    <button class="r-close" id="close" aria-label="关闭">关 ✕</button>
+    <div class="r-moon"></div>
+    <div class="r-top">
+      <div>
+        <h3 class="r-title" id="rTitle"></h3>
+        <div class="r-date" id="rDate"></div>
+      </div>
+      <div class="r-tools">
+        <button class="r-btn on" id="vBtn">竖</button>
+        <button class="r-btn" id="hBtn">横</button>
+      </div>
+    </div>
+    <div class="poem v" id="poem"></div>
+    <div class="seal"><span>余东</span><span>林印</span></div>
+    <div class="r-nav">
+      <button class="nav-btn" id="prev">‹ 上一首</button>
+      <div class="nav-mid" id="navMid"></div>
+      <button class="nav-btn" id="next">下一首 ›</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const POEMS = [{"id":0,"t":"北京中秋夜望月","d":"2019-09-13","y":"2019","b":["身处帝都只一人，遥望明月想故乡。","离家千里空望月，愁绪已渡万重山。","我思绵绵如月光，山高海阔照伊人。","我心有愁山外山，又似长江不断流。","路上孑孓仍独行，身披街灯影成三。","家人相聚不知惜，离别方有恨别意。","百年忧愁酒难解，千古游子何堪叹。","天地苍茫红尘高，明月悠悠挂枝头。","秋风已起枝头疏，落叶含恨归大地。","万家灯火团圆聚，直身吹笛立风中。","飞鸟相伴应归家，更惹离乡惆怅情。","料得远方亲人聚，抬头思我在天涯。","阴晴圆缺无定势，原是明月绕地行。","莹莹月光本日光，两亿公里反照回。","何如攀梯上月宫，我身代月寄愁情。","月冷高悬不知怜，唯有月光伴我情。","前路漫漫唯求索，此去北京不回头。","何须叹月诉离愁？心更磅礴上碧霄！"],"n":18,"tags":["月","离别","山","酒"],"long":true},{"id":1,"t":"阅兵","d":"2019-10-01","y":"2019","b":["三军威武佑中华，","锦绣河山养精魄。","一声喝得人心撼，","齐步踏出天地摇。"],"n":4,"tags":["山"],"long":false},{"id":2,"t":"无题","d":"2019-10-04","y":"2019","b":["帝都一夜秋雨凉，","扑面寒风蚀人骨。","千里离家忘添衣，","此身所处非故乡。"],"n":4,"tags":["离别"],"long":false},{"id":3,"t":"追求之歌","d":"2019-10-07","y":"2019","b":["我爱青山多妩媚，","山不就我我就山。","理所当然向前去，","人间自是有情痴。"],"n":4,"tags":["山"],"long":false},{"id":4,"t":"北大夜游","d":"2019-10-10","y":"2019","b":["夜更静谧人影疏，","古筑默默掩风尘。","博雅塔立湖未名，","风云人物动中华。","痴儿迷路多情趣，","言笑晏晏带月归。","此生何幸伴君游，","北大虽美不及卿。"],"n":8,"tags":["月"],"long":false},{"id":5,"t":"你很漂亮","d":"2019-10-19","y":"2019","b":["佳人悦目倾城貌，","绝色千秋难再双。","音笑婉转动我心，","如梦似幻唯有卿。"],"n":4,"tags":["梦"],"long":false},{"id":6,"t":"为何偏偏是你?","d":"2019-10-24","y":"2019","b":["我本望月唯伴影，","奈何尘世与君遇。","你是人间光与亮，","可愿执手共白头？"],"n":4,"tags":["月"],"long":false},{"id":7,"t":"无题","d":"2019-11-04","y":"2019","b":["梦里花开树影疏，","三千里路与飞雪。","云深不知佳人笑，","回首婆娑桃夭夭。"],"n":4,"tags":["花","梦","雪"],"long":false},{"id":8,"t":"孤独的诗，没有孤独二字","d":"2019-11-08","y":"2019","b":["月下茕茕影愈斜，","秋叶徘徊枝头落。","片云曾经望远山，","长河无奈终归海。","冬雨洗得一地愁，","冷风吹散千年怨。","天涯路远望断肠，","不如归去遥看月。"],"n":8,"tags":["月","山"],"long":false},{"id":9,"t":"无题","d":"2019-11-14","y":"2019","b":["空街残叶一人行，","冷风肃肃呼啸过。","千古贤愚共此月，","何复寂寥对影叹？"],"n":4,"tags":["月"],"long":false},{"id":10,"t":"叶落","d":"2019-11-20","y":"2019","b":["落叶成泥已印地，","人头攒动正当时。","街头银杏秃头望。","空寂半城烟华冷。"],"n":4,"tags":[],"long":false},{"id":11,"t":"北京初雪","d":"2019-12-01","y":"2019","b":["夜寒街灯雪初飘，","月冷路远人匆匆。","稚子相询雪来处，","斩云散作漫天花。","北京已度千秋雪，","今日又见白满城。","雪舞天地茫茫然，","万里北风不见君。"],"n":8,"tags":["月","花","雪"],"long":false},{"id":12,"t":"无题","d":"2019-12-01","y":"2019","b":["哪有情可长，","总是留不住。","冬去春又来，","雪逝无迹痕。"],"n":4,"tags":["雪"],"long":false},{"id":13,"t":"银河璀璨，你是人间光","d":"2019-12-06","y":"2019","b":["君乃天上星，","渺渺高空挂。","何幸得垂怜，","光柔照大地。"],"n":4,"tags":[],"long":false},{"id":14,"t":"无题","d":"2019-12-07","y":"2019","b":["孤独愁长似发长，","白云尚且追明月。","天高海阔宇宙大，","舟泛银河摘星人。"],"n":4,"tags":["月"],"long":false},{"id":15,"t":"无题","d":"2019-12-15","y":"2019","b":["与君白首雪地行，","两行脚印到无尽。","一生一世一双人，","何妨忍受寂寞苦。"],"n":4,"tags":["雪"],"long":false},{"id":16,"t":"平安夜喜乐","d":"2019-12-24","y":"2019","b":["倾城落雪夜静好，","剪得流年赋流光。","驯鹿飞驰月边过，","床头袜装祝与福。","人生何待救世主，","我身即佛渡苦海。","唯愿亲朋有相聚，","更无一人在天涯。"],"n":8,"tags":["月","雪"],"long":false},{"id":17,"t":"相思","d":"2020-01-15","y":"2020","b":["相思已久断尘思，","无非盈亏又一轮。","候君已久仍不至，","攀山赴海且待我。"],"n":4,"tags":["相思","山"],"long":false},{"id":18,"t":"致相逢","d":"2020-01-31","y":"2020","b":["与君相遇已恨晚，","又憾来日无再长。","春风曾送桃李落，","孤灯冬寒惆怅间。","白云无尽月高挂，","风吹时光散千年。","唯愿相见道珍重，","久别最喜是重逢。"],"n":8,"tags":["月","离别"],"long":false},{"id":19,"t":"元宵望月","d":"2020-02-08","y":"2020","b":["心底开花至碧霄，","便是月挂柳枝头。","远望大地千万里，","疫情不曾避元宵。","春意渐浓情萧瑟，","世间本是负重行。","韶光易逝人难在，","元宵佳节月泪流。"],"n":8,"tags":["月","花"],"long":false},{"id":20,"t":"我要你","d":"2020-02-14","y":"2020","b":["星光潋滟夜月明，","梦里相寻飞花雨。","生欲陪伴长恩爱，","死亦阴间永相随。","人生自是有别去，","愁肠寸断盼重逢。","天涯路远相思恨，","唯君白首不分离。"],"n":8,"tags":["月","相思","离别","花","梦"],"long":false},{"id":21,"t":"油菜花开","d":"2020-03-08","y":"2020","b":["天朗气清云高缈，","道旁次顾油菜花。","取色黄白自任性，","美人却在丛中笑。"],"n":4,"tags":["花"],"long":false},{"id":22,"t":"春来","d":"2020-03-10","y":"2020","b":["春意盼归枝头发，","小花点点满星河。","斜阳懒散睡草地，","心如纸鸢上碧霄！"],"n":4,"tags":["花"],"long":false},{"id":23,"t":"春分","d":"2020-03-20","y":"2020","b":["倦懒春风携春雨，","又是一年春来到。","去年离燕已回巢，","今日别客胡不归?","春分已至昼夜等，","宅家却把春色误。","碧波孤舟江上行，","远山更在远山外。"],"n":8,"tags":["离别","山"],"long":false},{"id":24,"t":"憾错过","d":"2020-03-23","y":"2020","b":["天涯逆旅人熙攘，","三生有幸得相逢。","曾付欢笑泪何流，","相识虽短慰平生。","一时错过便一世，","唯恨造化不与君。","此身化为天上月，","挂在汝心住在眼。"],"n":8,"tags":["月"],"long":false},{"id":25,"t":"无题","d":"2020-03-24","y":"2020","b":["自囚陋室心亦困，","烦恼苦闷油然生。","夕阳已沉黄昏留，","大鹏追日十亿里。"],"n":4,"tags":[],"long":false},{"id":26,"t":"骤起：暴雨袭来","d":"2020-03-28","y":"2020","b":["雷鸣乍响动心魄，","狂风阵阵助雨势。","天地茫茫看不穿，","洗却人间万丈尘。","","","低沉：雨势渐小","余东林","风停雨过夜渐静，","涤尽凡尘叶更青。","一夜卧听窗低语，","点点滴滴到天明。","","","次日：雨过天晴","余东林","春雨如油骗花开，","染得一山彩斑斓。","世事如何不堪解？","雨过天晴换人间。"],"n":20,"tags":["山","花"],"long":false},{"id":27,"t":"四月四","d":"2020-04-05","y":"2020","b":["东西南北鸣笛跨，","默立低首举国哀。","清明雨纷魂已断，","烈士好去莫回头。","心火点亮返家路，","魂兮归来且安息。","山河无恙国昌盛，","我为人间筑太平！"],"n":8,"tags":["山"],"long":false},{"id":28,"t":"赏牡丹","d":"2020-04-09","y":"2020","b":["牡丹国色灼灼红，","露华渐浓粉欲滴。","老楼凭栏倾洛阳，","依然人间富贵花。"],"n":4,"tags":["花"],"long":false},{"id":29,"t":"Never Enough","d":"2020-04-12","y":"2020","b":["千星黯淡月不皎，","五岳四海尚为轻。","因卿贵重胜人间，","手握乾坤牵汝手。"],"n":4,"tags":["月"],"long":false},{"id":30,"t":"伤离别","d":"2020-04-12","y":"2020","b":["自古谁不离？","悠悠水长流。","曾有明月在，","天荒花常开。"],"n":4,"tags":["月","离别","花"],"long":false},{"id":31,"t":"星月夜","d":"2020-04-12","y":"2020","b":["残云挂月燕夜飞，","灯光交织淡树影。","千星黯淡不足惜，","陌上佳人遥相望。"],"n":4,"tags":["月"],"long":false},{"id":32,"t":"小桥望月","d":"2020-04-15","y":"2020","b":["水中月非天上月，","眼前人是心上人。","唯愿此身化婵娟，","住在心上挂眼里。"],"n":4,"tags":["月"],"long":false},{"id":33,"t":"祝新婚快乐","d":"2020-04-17","y":"2020","b":["玉人一双幸遇上，","便是知音与姻缘。","百年琴瑟与和鸣，","人间白头携手老。"],"n":4,"tags":[],"long":false},{"id":34,"t":"相思苦","d":"2020-05-02","y":"2020","b":["相思煎熬苦，是生生死死，又死死生生。","更苦唯单思，问情为何物，只镜花水月。","何以慰相思，绮梦已成空，红颜亦白骨。"],"n":3,"tags":["月","相思","花","梦"],"long":false},{"id":35,"t":"仲夏夜之梦","d":"2020-05-14","y":"2020","b":["繁星钓起四海月，","梦碎洒满一银河。","万丈红尘多烦恼，","凡人亦是梦中仙！"],"n":4,"tags":["月","梦"],"long":false},{"id":36,"t":"念君归","d":"2020-05-14","y":"2020","b":["枝头雪融花又开，","冬离春去夏已至。","明月不曾分两地，","且问且盼何时归？"],"n":4,"tags":["月","离别","花","雪"],"long":false},{"id":37,"t":"河岸望月","d":"2020-05-14","y":"2020","b":["岸边垂柳影入水，","随意钓得满天星。","山海重重有相隔，","望月渺渺无极限。"],"n":4,"tags":["月","山"],"long":false},{"id":38,"t":"睡仙歌","d":"2020-05-14","y":"2020","b":["日上三竿大梦醒，","我是神仙乐逍遥。","人困一地便成囚，","心无挂碍得自在！"],"n":4,"tags":["梦"],"long":false},{"id":39,"t":"金鸡桥旁","d":"2020-05-24","y":"2020","b":["曾有相思已刻骨，","情之一字惹人伤。","千里碧霄万里云，","十里桃花不如你。","涛涛江水思与念，","唯愿朝朝和暮暮。","此生相会岂可期？","渺渺星空月影单。"],"n":8,"tags":["月","相思","花"],"long":false},{"id":40,"t":"曾经爱过","d":"2020-05-25","y":"2020","b":["情思似是前生定，巧笑嫣然羞春风。","少年意气多慕艾，眼里西施胜貂蝉。","见色起意一钟情，人间便添三分色。","相知相恋欲相守，真情如何配不上？","相见相伴到相老，红尘游戏有君足。","相思绵绵到无尽，从一而终不相负。","人山人海曾回首，先入为主眼万年。","雨打琵琶又一夜，辗转思君到天明。","滔滔江水多少愁，岁月催老一场空。","心似刀割泪难流，强提嘴角愁更愁。","斜阳凭栏望天际，白云悠悠心茫茫。","年未不惑已沧桑，事事皆苦往事甚。","曲散唯留对不起，此生有缘恨无分。","剑斩情丝斩不断，爱是占有却放手。","曾有执迷误此生，放手始得大自由。","天朗气清风和畅，恰似与君初逢日。","唯愿此去莫回头，各入江湖各相忘。","愿君平生喜与乐，天涯路远勿相知。"],"n":18,"tags":["月","相思","山"],"long":true},{"id":41,"t":"散步闲思","d":"2020-06-06","y":"2020","b":["踏花踩碎一地梦，","雨落水涨满江愁。","河岸倒影天在水，","我是红尘谪仙人！"],"n":4,"tags":["花","梦"],"long":false},{"id":42,"t":"且望天！","d":"2020-06-17","y":"2020","b":["人低不见月，","概因遮望眼。","飞到云海上，","月明心更广。"],"n":4,"tags":["月"],"long":false},{"id":43,"t":"无题","d":"2020-06-17","y":"2020","b":["明月彩云依然在，","不见黄昏柳下人。","窗雨似酒人自醉，","清梦多少不胜悲。","红尘如何许多愁？","古今流水汇东海。","且到碧霄看人间，","江山如画星光漫！"],"n":8,"tags":["月","山","梦","酒"],"long":false},{"id":44,"t":"月上仙","d":"2020-06-17","y":"2020","b":["飞越云海赏婵娟，","千古骚人何曾以。","我言今日胜往昔，","他日登月看地球。"],"n":4,"tags":["月"],"long":false},{"id":45,"t":"佛曰不可求佛","d":"2020-06-20","y":"2020","b":["苦海无涯更难渡，","一刀斩破红尘高。","世间百态迷人眼，","三千青丝乱禅心。","莫道回头方是岸，","波涛汹涌踏星河！","何须佛寺去求佛，","此心所在我独尊！"],"n":8,"tags":[],"long":false},{"id":46,"t":"晚风吹","d":"2020-06-23","y":"2020","b":["无星也无月，无朋有孤影。","红尘独泛舟，随水自东流。","古今满江愁，世事风波多。","无端惹人笑，山远天际高。"],"n":4,"tags":["月","山"],"long":false},{"id":47,"t":"遇美人","d":"2020-06-24","y":"2020","b":["一缕情丝一缕愁，","相思红豆两行泪。","红尘执手看流年，","恨不与君共白首。"],"n":4,"tags":["相思"],"long":false},{"id":48,"t":"遛狗闲情","d":"2020-06-28","y":"2020","b":["一弯碧水绕江城，","涟漪泛起万重波。","岸柳垂下疑鱼线，","未名花香钓游人。","三两白云悠悠过，","倦懒风吹撩发丝。","半倚栏杆眺干里，","又是斜阳铺人间。"],"n":8,"tags":["花"],"long":false},{"id":49,"t":"侠客行","d":"2020-07-14","y":"2020","b":["一剑岀鞘耀九洲，","刀劈天地镇八方。","七情六欲斩红尘，","五湖四海任逍遥。","三人成虎不畏言，","千斤道义两肩扛。","莫道江湖几人归，","天涯明月依然在！"],"n":8,"tags":["月"],"long":false},{"id":50,"t":"无题","d":"2020-07-29","y":"2020","b":["倚桥望月看流水，","更有天外星二三。","冬去春来夏又至，","唯有孤影伴岁月。"],"n":4,"tags":["月"],"long":false},{"id":51,"t":"人本孤独","d":"2020-07-30","y":"2020","b":["向来情深付明月，","流水无意带落花。","何须对影自怜艾？","天下何人不孤独。"],"n":4,"tags":["月","花"],"long":false},{"id":52,"t":"等待","d":"2020-07-30","y":"2020","b":["城南花开月挂枝，","陌上相约人不至。","恒河沙数亿兆兆，","再无一人能似君。"],"n":4,"tags":["月","花"],"long":false},{"id":53,"t":"无题","d":"2020-08-11","y":"2020","b":["叶落如雨黄金街，","花更凋零不见踪。","无星无月伴孤灯，。","万籁俱寂虫偶鸣。","心之所向千万里，。","层云阻我眺望眼。","山河重重不可挡，。","月光目光终将聚。"],"n":8,"tags":["月","山","花"],"long":false},{"id":54,"t":"七夕","d":"2020-08-22","y":"2020","b":["茕茕一身独望星，","牛郎织女银河聚。","岂待鹊桥来相会，","天涯必有望星人。","佳人相约一千年，","此缘必是前生定。","目光星光终相遇，","灵犀自起跨万里。"],"n":8,"tags":[],"long":false},{"id":55,"t":"无题","d":"2020-08-28","y":"2020","b":["天涯何处不月明？","苍穹之下星点点。","悠悠我心千里空，。","岁月如水万载流。"],"n":4,"tags":["月"],"long":false},{"id":56,"t":"无题","d":"2020-09-01","y":"2020","b":["又是一轮明月起，。","人间灯火相映辉。","红尘本自多烦忧，。","焉知仙人无挂碍。","此山过后又一山，。","小河汇江到东海。","莫道痴人笑清风，。","多少烟雨不寂寥？"],"n":8,"tags":["月","山"],"long":false},{"id":57,"t":"秋分歌","d":"2020-09-22","y":"2020","b":["秋分又至不经愁，","天高日远江长流。","乘风欲归归何处，","曾起相思思无涯。","遥望月明古与今，","沧海桑田换人间。","岁月轮转谁人共？","万里渺渺影独行。"],"n":8,"tags":["月","相思"],"long":false},{"id":58,"t":"中秋节望月","d":"2020-10-01","y":"2020","b":["今月曾经照古人，","相思想必天下同。","山海有隔月有缺，","红尘滚滚憾事多。","抬首望乡一千里，","月光代寄惆怅情。","何须长恨东流水，。","古月依然耀今人。"],"n":8,"tags":["月","相思","山"],"long":false},{"id":59,"t":"相见欢","d":"2020-10-13","y":"2020","b":["一见便入梦，","忍负好时光。","曾遇山和海，","南北不如君 。","清风与朗月，","杨柳可依依。","细雨有梧桐，","南风梦西洲。"],"n":8,"tags":["月","山","梦"],"long":false},{"id":60,"t":"秋天的秘密","d":"2020-10-18","y":"2020","b":["秋至叶落铺满街，","风与云会漫天星。","不负光阴万里行，","山高路远寄云间。","一寸相思一寸心，","十年西风独茫茫。","明月飞花何处寻？","有君便是人间梦！"],"n":8,"tags":["月","相思","山","花","梦"],"long":false},{"id":61,"t":"佳人","d":"2020-10-19","y":"2020","b":["我心怀大海，","所念皆星河。","遍观千秋雪，","佳人难再得。","不曾倾一城，","相思但刻骨。","岁月催人老，","可愿共白首？"],"n":8,"tags":["月","相思","雪"],"long":false},{"id":62,"t":"树遇冷秋","d":"2020-10-28","y":"2020","b":["叶落三千满街肃，","孤月一轮照红尘。","春去秋来又四季，","唯有只影永同在。"],"n":4,"tags":["月"],"long":false},{"id":63,"t":"长安街叶落如雨","d":"2020-10-31","y":"2020","b":["北京大风起，","吹落满街叶。","花谢又一季，","明年必再春！"],"n":4,"tags":["花"],"long":false},{"id":64,"t":"许相思","d":"2020-11-04","y":"2020","b":["情深向来惹痴顽，","不屑一顾是追忆。","谁人与我许相思，","死生契阔永相依？"],"n":4,"tags":["相思"],"long":false},{"id":65,"t":"双十一有感","d":"2020-11-11","y":"2020","b":["人生本自无来处，","天涯何方是归途。","昨日是非种种怨，","今夕何夕月高悬。","风吹叶落肃冷街，。","四季轮转来复回。","莫道路孤一人行，。","且笑且歌与苍天！"],"n":8,"tags":["月"],"long":false},{"id":66,"t":"梦在深秋","d":"2020-11-16","y":"2020","b":["满街落尽银杏叶，","踏碎京城深秋梦。","明月残叶成一秋，","枯枝疏影候冬雪。","多少冷风呼啸过，","更有冰霜覆天地。","起起伏伏有得失，","人生如何不轮回？"],"n":8,"tags":["月","梦","雪"],"long":false},{"id":67,"t":"夜跑","d":"2020-11-27","y":"2020","b":["月冷有高歌，","寒风伴长啸。","枯枝无一叶，。","天空海亦阔！"],"n":4,"tags":["月"],"long":false},{"id":68,"t":"无题","d":"2020-11-29","y":"2020","b":["望月路远通南北，","千山万水共婵娟。","更邀明月酒一杯，","阴晴圆缺又何妨？","碧空如镜是星河，","孤影有幸伴月光。","天下灵犀无觅处，","月上相见一千年。"],"n":8,"tags":["月","山","酒"],"long":false},{"id":69,"t":"月冷","d":"2020-12-04","y":"2020","b":["月光如水似流年，","涤尽红尘万丈高。","已是冷冬一江寒，。","依然花开彼岸天！"],"n":4,"tags":["月","花"],"long":false},{"id":70,"t":"无题","d":"2020-12-12","y":"2020","b":["相思缘长愁更长，","一曲红尘流年伤。","莫问归处雪纷飞，","天涯远方寄月光。"],"n":4,"tags":["月","相思","雪"],"long":false},{"id":71,"t":"遥相思","d":"2020-12-21","y":"2020","b":["去年冬至此时节，","相伴与欢共水饺。","转眼身处天南北，","教人如何不相思？","相思情深起怨愁，","如风如云心悠悠。","既有羁绊一线牵，","天涯如何是天涯？"],"n":8,"tags":["相思"],"long":false},{"id":72,"t":"平安夜的月","d":"2020-12-25","y":"2020","b":["柳树枝头天上月，。","水中月照心上人。","莫看凛冬一江寒，。","月光依然波光粼。"],"n":4,"tags":["月"],"long":false},{"id":73,"t":"生日快乐","d":"2021-01-10","y":"2021","b":["倾城倾国是佳人，笑靥羞花更闭月。","情深恰似长江流，又有烟锁一秋愁。","飞花带风追归燕，逐月乌云来复回。","桃花夭夭沐细雨，满山开遍醉游客。","银河历数千千万，再无一星耀九洲。","何止艳压三千色，更有才华世无双。","女容岂为悦己者？本自悦己随心意！","世情风波多催折，荷立傲然烟雨中。","不曾攀附如藤蔓，唯有木棉致橡树。","茕茕美好自绚烂，问君何复更多言？","何其有幸有君诞，世间美好添三分。","山河万里多锦绣，雨花风月为君寿。","天增岁月人增龄，美好自是年更胜。","女子岂倚年轻貌？人如四季更不同。","容颜易老不需恨，相思依然一万年。","千金一笑春风过，唯愿长醉酒窝里。","遍观绝色古与今，再无悦目如佳人。","巧笑嫣然撼心魄，酒窝能载千秋酒。","岁月轮回美不减，本自天仙下凡尘。","愿君此生长伴欢，人生虽苦汝更甜。"],"n":20,"tags":["月","相思","山","花","酒"],"long":true},{"id":74,"t":"无题","d":"2021-01-24","y":"2021","b":["阅尽千帆皆不是，","再无一人可回首。","沧海有泪桑田老，","身虽咫尺却天涯。","人生最苦求不得，","徒余悔恨且有憾。","惆怅本自东流水，","如何天涯不咫尺？"],"n":8,"tags":[],"long":false},{"id":75,"t":"长安街夜望月","d":"2021-01-24","y":"2021","b":["月在天上却咫尺，","人近咫尺是天涯。","多少相思寄明月，","依然悠悠默不语。"],"n":4,"tags":["月","相思"],"long":false},{"id":76,"t":"出门见雪","d":"2021-01-25","y":"2021","b":["风雨相遇是为雪，","悠悠飘洒满人间。","飞雪点点一人立，","如何白雪不白首？"],"n":4,"tags":["雪"],"long":false},{"id":77,"t":"遇月","d":"2021-01-30","y":"2021","b":["流年易逝影难留，","唯有月光长久久。","沧海有泪云有梦，","山南水北尘随风。","人间清欢与明月，","游鱼寻海遇星河。","花好月圆曾有约，","万里江山是重逢。"],"n":8,"tags":["月","山","花","梦"],"long":false},{"id":78,"t":"游颐和园记","d":"2021-02-12","y":"2021","b":["冰封昆明湖，","墨笼万寿山。","傲立佛香阁，","横跨多孔桥。","石舫不能行，","帝宫百姓至。","王侯宁有种？","昂首换日月！"],"n":8,"tags":["月","山"],"long":false},{"id":79,"t":"上弦月","d":"2021-02-20","y":"2021","b":["何人望月寄惆怅，","一江春水满愁情。","月下曾有飞花怨，","举杯四季与轮回。","沧海有泪桑田老，","月下追忆一千年。","深情自古易辜负，","抬头望月却依然。"],"n":8,"tags":["月","花"],"long":false},{"id":80,"t":"元宵·正月十五月","d":"2021-02-27","y":"2021","b":["一轮圆月照天涯，","今宵元宵上九霄。","步步踏出皆是春，","满街灯火映伊人。","星河漫漫何时梦？","去年今日却依然。","天远且敬一杯酒，","千古离愁不言中。"],"n":8,"tags":["月","离别","梦","酒"],"long":false},{"id":81,"t":"论勾践","d":"2021-03-11","y":"2021","b":["自古君王皆虚妄，","忠贞臣民是愚忠。","卧薪尝胆可忍辱，","患难可共富贵难。","兔死狗烹良弓藏，","急流勇退见英雄。","天道不过是轮回，","前车之鉴后不师！"],"n":8,"tags":[],"long":false},{"id":82,"t":"一期一会","d":"2021-03-12","y":"2021","b":["人潮涌动擦肩过，","相见未果便相离。","素昧平生不相思，","身在咫尺隔天涯。","月挂疏桐人成影，","未曾相识已相思。","有缘相会既有时，","千里何曾分两乡！"],"n":8,"tags":["月","相思","离别"],"long":false},{"id":83,"t":"错过","d":"2021-03-15","y":"2021","b":["山川河流有相逢，","四季轮转终分离。","从此江湖不再见，","一叶孤舟伴余生。"],"n":4,"tags":["离别","山"],"long":false},{"id":84,"t":"深夜寄思","d":"2021-03-20","y":"2021","b":["一生忘我往事忘，","回首长夜岁月长。","光阴流水思华年，","落花成泥为护春。","风雨相思不相见，","深夜辗转难入眠。","抬首望月不怀远，","江湖相忘有天涯。"],"n":8,"tags":["月","相思","花"],"long":false},{"id":85,"t":"春花开","d":"2021-03-27","y":"2021","b":["春风遇花玉兰开，","淡薄素雅动京城。","花开花落又一季，","倾城绝恋是轮回。","花好月圆固可贵，","叶落残月亦难得。","愁绪何须寄春风？","江海天涯终重逢！"],"n":8,"tags":["月","花"],"long":false},{"id":86,"t":"清明","d":"2021-04-04","y":"2021","b":["千古风流皆入土，","桃李春风遇清明。","人生逆旅归何处？","向死而生尚未迟！"],"n":4,"tags":[],"long":false},{"id":87,"t":"夜归","d":"2021-04-08","y":"2021","b":["落花三千入梦去，","多少离殇千秋月。","天上人间难相遇，","长风万里几时休？","情深苦海不自渡，","回首无岸亦无悔。","前生曾与今生订，","春风十里终相逢。"],"n":8,"tags":["月","离别","花","梦"],"long":false},{"id":88,"t":"Someone like you~","d":"2021-04-19","y":"2021","b":["不可相见便期待，","不肯怀念唯忘怀。","人潮涌动多熙攘，","再无一人可如你。"],"n":4,"tags":["相思"],"long":false},{"id":89,"t":"今安在？","d":"2021-04-19","y":"2021","b":["生死两别长留恨，","此心茫茫人彳亍。","满城尽是飞柳絮，","谢家道韫今安在？"],"n":4,"tags":["离别"],"long":false},{"id":90,"t":"深夜有相思","d":"2021-04-19","y":"2021","b":["南国红豆无人采，","多少相思皆成空，","烟花易冷花易谢，","一往情深最弄人。"],"n":4,"tags":["相思","花"],"long":false},{"id":91,"t":"长歌行","d":"2021-04-19","y":"2021","b":["沧海曾经笑浮云，","天涯寂寞遇海角。","长空摇落万颗星，","古今千秋一明月。","人生逆旅无归人，","山河有憾山外山。","莫道圣贤常寂寥，","一曲高歌笑红尘。"],"n":8,"tags":["月","山"],"long":false},{"id":92,"t":"遇佳人","d":"2021-04-27","y":"2021","b":["陌上佳人曾擦肩，","春风柳条多依依。","今日花落嗟一叹，","浮云幻光且莫求。","寒暑相约不相负，","人间美梦过鹊桥。","星汉灿烂人如月，","天涯何处不重逢？"],"n":8,"tags":["月","花","梦"],"long":false},{"id":93,"t":"北方的月亮","d":"2021-04-29","y":"2021","b":["一轮明月凉似水，","佳期如梦却难为。","山南水北影孑孓，","天涯海角曾回眸。","阴晴圆缺有悲欢，","离合频频是人间。","料得南方望月人，","思我千里共婵娟。"],"n":8,"tags":["月","离别","山","梦"],"long":false},{"id":94,"t":"且莫悲","d":"2021-05-02","y":"2021","b":["斜阳更在秋风外，","日薄西山无尽悲。","天涯梦碎无可觅，","万家灯火且正明。","离家千里独垂泪，","只影堪与何人说。","莫道愁绪挥不去，","日落尽头是月升。"],"n":8,"tags":["月","离别","山","梦"],"long":false},{"id":95,"t":"“情”诗","d":"2021-05-10","y":"2021","b":["莫道多情不痴情，","深情每被情深误。","无情如何是绝情？","情到浓时淡若无。","有情皆债是情孽，","红尘苦海怨情多。","世情蹉跎风波起，","有情千里一线牵。"],"n":8,"tags":[],"long":false},{"id":96,"t":"情人怨","d":"2021-05-10","y":"2021","b":["初见曾有见沧海，","转身方知是天涯。","皎月悬空天是水，","惊起一池夜星辉。","情深相思易憔悴，","人间孤影心茫茫。","不知鹊桥谁人候，","自是惆怅江水流。"],"n":8,"tags":["月","相思"],"long":false},{"id":97,"t":"想家","d":"2021-05-10","y":"2021","b":["我把月色与一杯，","酒不醉人人自醉。","江水涛涛夜静谧，","月圆恰是思乡时。"],"n":4,"tags":["月","酒"],"long":false},{"id":98,"t":"相思","d":"2021-05-10","y":"2021","b":["是相思难长相思，","是少年终不少年。","一席烟雨梦朦胧，","南国红豆一场空。"],"n":4,"tags":["相思","梦"],"long":false},{"id":99,"t":"夜思","d":"2021-05-19","y":"2021","b":["星夜依然三千梦，","皓月皎皎照伊人。","春风曾与今生定，","杨柳依依且莫别。"],"n":4,"tags":["月","离别","梦"],"long":false},{"id":100,"t":"我恋爱了，然后又失恋了","d":"2021-05-29","y":"2021","b":["前生曾与陌上逢，","今日相见不相识。","情深满江不断流，","缘浅浮萍任风吹。","青丝不许华年逝，","痴痴少年已白头。","望月怀远长嗟叹，","人间已是一千年。"],"n":8,"tags":["月"],"long":false},{"id":101,"t":"莫相思","d":"2021-06-15","y":"2021","b":["总把相思寄明月，","满腔愁绪付江流。","人间自是多凉薄，","镜花水月一场空。","花开彼岸鱼跃海，","梦醒缘灭星满天。","红尘寥落一人醉，","春秋梦回有天涯。"],"n":8,"tags":["月","相思","花","梦"],"long":false},{"id":102,"t":"月圆人离别--师兄毕业快乐～","d":"2021-06-23","y":"2021","b":["人生聚少别离多，","今朝相伴且尽欢。","自此一别人各方，","心有挂念千里牵。","浊酒相送行万里，","前路漫漫道不孤。","他日再有望月时，","山海相隔目光逢。"],"n":8,"tags":["月","相思","离别","山","酒"],"long":false},{"id":103,"t":"初见","d":"2021-06-28","y":"2021","b":["情深哀绝思有恨，","落花流水念无涯。","物是人非满萧瑟，","锦书难托独怅然。","一夜相思满城雨，","半生时光到白头。","梦醒有时终错过，","明月星海风遇云。"],"n":8,"tags":["月","相思","花","梦"],"long":false},{"id":104,"t":"夜雨","d":"2021-07-06","y":"2021","b":["听风流年匆匆过，","京城夜雨湿长街。","丝雨如愁总入梦，","叶落花谢难为歌。","莫道重云惹愁绪，","荡涤人间万丈尘。","不知今夜月何在？","仍待孤影上西楼。"],"n":8,"tags":["月","花","梦"],"long":false},{"id":105,"t":"不见不散","d":"2021-07-09","y":"2021","b":["一路烟尘赴南北，","三千里路与月光。","人间多情徒余恨，","明月倦懒挂枝头。","岁月自是催人老，","落花时节又孤影。","兜兜转转人不见，","花开一季又轮回。"],"n":8,"tags":["月","花"],"long":false},{"id":106,"t":"辛丑年六月送师兄","d":"2021-07-20","y":"2021","b":["月圆人离别，此恨无可消。","转瞬隔山海，咫尺是天涯。","前路长漫漫，只影不曾孤。","天高海亦阔，好去莫回头！"],"n":4,"tags":["月","离别","山"],"long":false},{"id":107,"t":"不如怀念","d":"2021-08-04","y":"2021","b":["一曲绿水绕青山，","杨柳依依与风别。","千古长城今依然，","白云悠悠不见君。","脚上石砖仍如故，","灯影斑驳茕茕归。","料得春风有再渡，","陌上少年无人回。"],"n":8,"tags":["离别","山"],"long":false},{"id":108,"t":"送别","d":"2021-08-08","y":"2021","b":["相逢匆匆又见影，","人生聚少离别多。","江湖日远散天涯，","白云悠悠伴月明。","山海相隔与春秋，","离恨不过酒一杯。","前路莫愁知己少，","行人不应有惆怅。"],"n":8,"tags":["月","离别","山","酒"],"long":false},{"id":109,"t":"一起去看流星雨","d":"2021-08-13","y":"2021","b":["流星一霎是恒永，","繁华落尽留陨石。","时光匆匆来去空，","天涯咫尺无穷已。","宇宙洪荒四方立，","苍穹之下一孤舟。","美景若教无人赏，","只影相伴到天明。"],"n":8,"tags":[],"long":false},{"id":110,"t":"七夕","d":"2021-08-13","y":"2021","b":["深爱岂又在朝暮，","一夜遥望共银河。","人间千年多惆怅，","相逢时难别更难。","流年逝水不可追，","万般风情与谁说？","尘世望尽独月明，","唯一无二再无她。"],"n":8,"tags":["月","离别"],"long":false},{"id":111,"t":"空相思","d":"2021-08-16","y":"2021","b":["岁月如歌唯惆怅，","月色似水伴影流。","一夜星辰皆入梦，","不知相思是何人。"],"n":4,"tags":["月","相思","梦"],"long":false},{"id":112,"t":"无题","d":"2021-09-06","y":"2021","b":["秋叶流水莫相误，","春风曾过许年华。","落日斜阳是过客，","昏鸦惆怅无归人。","天涯海角有相逢，","心之所向灵犀通。","一夜星辰落如雨，","皎月依然照人家。"],"n":8,"tags":["月"],"long":false},{"id":113,"t":"且当歌","d":"2021-09-16","y":"2021","b":["人生短短不过百，","放眼遥看一千年！","豪杰慷慨且当歌，","万载悠悠青史留。","岁月轮转不知老，","年暮岂又恨别离？","清风朗月且饮酒，","山高水长有重逢！"],"n":8,"tags":["月","离别","山","酒"],"long":false},{"id":114,"t":"中秋月","d":"2021-09-21","y":"2021","b":["月照人间已千年，","人间望月寄相思。","一夜叶落尽相忆，","秋来婵娟又天涯。"],"n":4,"tags":["月","相思"],"long":false},{"id":115,"t":"无题","d":"2021-12-09","y":"2021","b":["寒风萧瑟与枯木，","星光寥落满街凉。","莫道消魂一山愁，","归人不见夜月明。"],"n":4,"tags":["月","山"],"long":false},{"id":116,"t":"思念","d":"2022-04-28","y":"2022","b":["人生自是多别离，","江水长东唯留恨。","愁绪曾使星空黯，","思念却在心头缠。","清风明月常作伴，","夕阳远去正寻常。","前路漫漫且茫茫，","峰回路转不见君。"],"n":8,"tags":["月","相思","离别"],"long":false},{"id":117,"t":"去他妈的爱情","d":"2022-05-29","y":"2022","b":["愁绪酿成一江酒，","千载难消眉间雪。","无情西风带湿雨，","总是惹得人憔悴。","夜深月沉常梦回，","影瘦落花相顾怜。","深情总被薄情负，","相思渺渺且茫茫。"],"n":8,"tags":["月","相思","花","梦","雪","酒"],"long":false},{"id":118,"t":"致相逢","d":"2022-06-27","y":"2022","b":["与君相遇已恨晚，","又憾来日无再长。","春风曾送桃李落，","孤灯冬寒惆怅间。","白云无尽月高挂，","风吹时光散千年。","唯愿相见道珍重，","久别最喜是重逢。"],"n":8,"tags":["月","离别"],"long":false},{"id":119,"t":"无题","d":"2022-08-24","y":"2022","b":["回首千次难寻雪，","愁结百转月初露。","清风多情应笑我，","江湖已老人不归。"],"n":4,"tags":["月","雪"],"long":false},{"id":120,"t":"无题","d":"2022-09-06","y":"2022","b":["常有清梦袭人间，","一杆钓起千颗星。","乘月兴起入红尘，","归人已远影长斜。","千里江河行迢迢，","韶华易逝无再回。","四季轮转又一年，","秋风秋意最凉薄。"],"n":8,"tags":["月","梦"],"long":false},{"id":121,"t":"中秋节操场散步独思","d":"2022-09-11","y":"2022","b":["中秋有月不见月，","凉风无意寄相思。","潇潇细雨无边愁，","分明秋思有人家。","自有哀怨心头生，","人间长恨无绝期。","多少滋味欲言止，","小径孤影独徘徊。"],"n":8,"tags":["月","相思"],"long":false},{"id":122,"t":"北医生日快乐！","d":"2022-10-26","y":"2022","b":["风雨历遍百十载，","常有铁肩担道义。","气压九州三千里，","家国沧桑仍壮志。","筚路蓝缕多曲折，","初心不易唯厚道。","披星戴月呕心血，","我许人间第一流！"],"n":8,"tags":["月"],"long":false},{"id":123,"t":"无题","d":"2022-11-08","y":"2022","b":["人生凉薄总似梦，","伤心难免添闲愁。","携酒莫问归何处，","此恨且寄东流水。"],"n":4,"tags":["梦","酒"],"long":false},{"id":124,"t":"想你","d":"2023-01-02","y":"2023","b":["相思恰似一江流，","又化云雨倾四海。","天涯相隔山外山，","唯有星月千里牵。","清风入梦意不觉，","兜兜转转无可觅。","多情易困痴情恼，","愿君不负相思债。"],"n":8,"tags":["月","相思","山","梦"],"long":false},{"id":125,"t":"遗憾","d":"2023-01-07","y":"2023","b":["人间清风常望月，","明月何曾梦清风。","多情怎堪无情恼，","一腔惆怅江水流。"],"n":4,"tags":["月","梦"],"long":false},{"id":126,"t":"空相思","d":"2023-01-13","y":"2023","b":["岁月如歌唯惆怅，","月色似水伴影流。","一夜星辰皆入梦，","不知相思是何人。"],"n":4,"tags":["月","相思","梦"],"long":false},{"id":127,"t":"怨","d":"2023-01-14","y":"2023","b":["心如明月人不知，","心茫茫兮卧枯枝。","远山寂寥人不至，","一江相思唯情痴。"],"n":4,"tags":["月","相思","山"],"long":false},{"id":128,"t":"见月","d":"2023-03-07","y":"2023","b":["沧海曾经见明月，","巫山却已变桑田。","愁绪千年何时绝，","相思依然泪满面。"],"n":4,"tags":["月","相思","山"],"long":false},{"id":129,"t":"长庚凌月有感","d":"2023-03-25","y":"2023","b":["金星伴月偶有时，","纵然相近隔万里。","长空自古多寂寥，","恰如人生浮萍飘。"],"n":4,"tags":["月"],"long":false},{"id":130,"t":"无题","d":"2023-04-25","y":"2023","b":["人间清风总难过，","浮生若梦相思错。","月下星河多阑珊，","流水常把落花误。","既有爱恨总生愁，","且饮且歌皆过客。","山海千载空悠悠，","莫笑痴人常落寞。"],"n":8,"tags":["月","相思","山","花","梦"],"long":false},{"id":131,"t":"恨将别","d":"2023-06-13","y":"2023","b":["千秋自古恨离别，","常有寂寥泪双行。","此朝挥手别君去，","他日相逢未有时。","春夏秋冬亦轮回，","悲欢离合是人生。","愿君无恙常安康，","愿君相思终相逢。"],"n":8,"tags":["相思","离别"],"long":false},{"id":132,"t":"胧月","d":"2023-08-26","y":"2023","b":["月色朦胧凉似梦，","满身烟尘轻如水。","落花憔悴眉头锁，","人间如何不沧桑。"],"n":4,"tags":["月","花","梦"],"long":false},{"id":133,"t":"无月夜独吟","d":"2023-09-16","y":"2023","b":["萧条寥落只影随，","寂寞一梦空长叹。","人生常似孤鸿飞，","一曲望断双泪垂。"],"n":4,"tags":["梦"],"long":false},{"id":134,"t":"行道难","d":"2024-03-07","y":"2024","b":["逆水行舟常倒退，","前路漫漫多坎坷。","艰苦不过清风拂，","且望天涯且望月！","夕阳景好需相思，","残云还在千山外。","寻仙问道人间梦，","行人不应怕路难。"],"n":8,"tags":["月","相思","山","梦"],"long":false},{"id":135,"t":"北大春日初见","d":"2024-03-24","y":"2024","b":["桃红柳绿尽遐想，","花落满池暗留香。","千娇百媚春风荡，","塔湖一色映天光。"],"n":4,"tags":["花"],"long":false},{"id":136,"t":"春日相思","d":"2024-03-24","y":"2024","b":["相思已入骨，","相念又成疾。","两情若相悦，","何须朝暮随？"],"n":4,"tags":["相思"],"long":false},{"id":137,"t":"海棠花开","d":"2024-03-24","y":"2024","b":["海棠真国色，","佳人尤胜雪。","倩影牵相思，","只愿花前老。"],"n":4,"tags":["相思","花","雪"],"long":false},{"id":138,"t":"恨离别","d":"2024-04-13","y":"2024","b":["相见亦欢别亦难，","满腔愁绪月凄凉。","此恨悠悠泪朦胧，","空留离绪满京城。"],"n":4,"tags":["月","离别"],"long":false},{"id":139,"t":"青丝","d":"2024-05-01","y":"2024","b":["青丝寄情丝，","欲与共白首。","岁月轮回已，","携手人间老。"],"n":4,"tags":["月"],"long":false},{"id":140,"t":"静园酣睡","d":"2024-05-11","y":"2024","b":["大草坪上睡大觉，","恍然一梦我非我！","​红尘作伴身不染，","我本天上谪仙人！"],"n":4,"tags":["梦"],"long":false},{"id":141,"t":"中元节夜宿于玉皇顶","d":"2024-08-17","y":"2024","b":["月隐星现雾弥漫，","山风簌簌林萧萧。","玉皇庙旁曾入眠，","痴心不悔攀泰山。"],"n":4,"tags":["月","山"],"long":false},{"id":142,"t":"将登泰山","d":"2024-08-17","y":"2024","b":["男儿赳赳赴泰山，","绝顶不凌誓不还。","始皇封禅应有幸，","孺子无知欲等高！"],"n":4,"tags":["山"],"long":false},{"id":143,"t":"泰山赏月","d":"2024-08-17","y":"2024","b":["山高月更远，","不肯近人间。","苍天何渺渺，","我心但茫茫。"],"n":4,"tags":["月","山"],"long":false},{"id":144,"t":"爬泰山有感","d":"2024-08-17","y":"2024","b":["踏破天阶越天门，","艰难困苦登仙梯。","回首来时漫漫路，","一步一步又一步。"],"n":4,"tags":[],"long":false},{"id":145,"t":"玉皇顶看日出失败","d":"2024-08-17","y":"2024","b":["大雾遮眼不见日，","日出东方却依然。","遗憾常有是人生，","来日方长仍可期。"],"n":4,"tags":[],"long":false},{"id":146,"t":"登泰山见瀑布","d":"2024-08-17","y":"2024","b":["山泉涧中流，","清幽淡鸟鸣。","人潮来与去，","依旧淌千年。"],"n":4,"tags":["山"],"long":false},{"id":147,"t":"我与明月独酌","d":"2024-09-12","y":"2024","b":["不知明月可寂寞？","我有浊酒可慰疗。","我与明月共酣醉，","明月与我不寂寥。"],"n":4,"tags":["月","酒"],"long":true},{"id":148,"t":"中秋节操场跑步","d":"2024-09-17","y":"2024","b":["家乡故里人常念，","岭南帝都千里牵。","乌云万里月不见，","眼前月是心上人。"],"n":4,"tags":["月","相思"],"long":false},{"id":149,"t":"我与明月独酌","d":"2024-09-17","y":"2024","b":["不知明月可寂寞？我有浊酒可慰疗。","茕立望月常怀远，江水潺潺静思帆。","西山有雪皆过客，鱼跃南海又复还。","碧云欲语却还休，雨点轻落遮鸟啼。","举眼尽是满天星，恰似散花化蝶飞。","登高赏月眺千里，月瞰人间已万年。","云动悠悠留风影，今我来思笛声远。","陌上花开人不归，天长地久却有时。","武陵渔樵人不见，桃源一梦又千年。","人间欢笑几回闻，一曲相思肝肠断。","不知人间南北路，红尘滚滚分西东。","车水马龙人熙攘，炊烟袅袅待谁归？","婵娟千里人尽望，月落凡间几人回？","当年明月望天涯，叶落山涧空悠悠。","月做舫船云做帆，漫荡星河又长啸。","琼台云深不见仙，方知山人便是仙。","不如乘风且归去，南山相送且摆手。","我与明月共酣醉，明月与我不寂寥。"],"n":18,"tags":["月","相思","离别","山","花","梦","雪","酒"],"long":true},{"id":150,"t":"国庆假期不回家","d":"2024-10-02","y":"2024","b":["风中浮萍常飘零，","落日余晖在他乡。","天涯望断且沦落，","我已不听乡音久。"],"n":4,"tags":[],"long":false},{"id":151,"t":"未名湖边","d":"2024-10-12","y":"2024","b":["鱼动惊湖影，","光跃波纹间。","远处传虫鸣，","幽香已醉人。"],"n":4,"tags":[],"long":false},{"id":152,"t":"冬日送师兄远别","d":"2024-11-14","y":"2024","b":["西站与君离别去，","折柳依依泪汪汪。","山水千里难再聚，","婵娟相逢却有时。"],"n":4,"tags":["离别","山"],"long":false},{"id":153,"t":"月夜思","d":"2024-11-16","y":"2024","b":["我在人间望明月，","不知明月思何人。","月冷西楼又千年，","不见当年望月人。"],"n":4,"tags":["月"],"long":false},{"id":154,"t":"元宵月","d":"2025-02-12","y":"2025","b":["元宵团圆夜，","孤影独伫立。","万家灯火时，","未语泪双行。","清冷人如月，","枯枝却萧萧。","古今皆寂寥，","千年留一叹。"],"n":8,"tags":["月"],"long":false},{"id":155,"t":"长相思","d":"2025-05-06","y":"2025","b":["千山遥望万水隔，","明月天涯几时休。","人间相思长江流，","不知几人偿所愿。"],"n":4,"tags":["月","相思","山"],"long":false},{"id":156,"t":"美人赋","d":"2025-05-07","y":"2025","b":["金陵花动三千里，","笑眼盈盈人如月。","牡丹妆逊芙蓉惭，","人间不应有谪仙。"],"n":4,"tags":["月","花"],"long":false},{"id":157,"t":"想你","d":"2025-05-09","y":"2025","b":["人间最苦是相思，","一颦一笑摄人魂。","只愿相伴长相随，","不羡鸳鸯不羡仙。"],"n":4,"tags":["相思"],"long":false},{"id":158,"t":"解相思","d":"2025-05-15","y":"2025","b":["我心似明月，","何以解相思？","天涯人遥在，","不得见朱颜。"],"n":4,"tags":["月","相思"],"long":false},{"id":159,"t":"叹平生","d":"2025-07-07","y":"2025","b":["人生诸事皆是空，","红尘滚滚长做梦。","波涛浮沉叹平生，","天涯孤鸿一过客。"],"n":4,"tags":["梦"],"long":false},{"id":160,"t":"人生一梦，白云苍狗","d":"2025-08-10","y":"2025","b":["心如明月人茕茕，","大梦初醒了荒唐。","千山煮雪愁满江，","银汉洗我鬓微霜。"],"n":4,"tags":["月","山","梦","雪"],"long":false},{"id":161,"t":"七夕","d":"2025-08-29","y":"2025","b":["年年星夜踏鹊桥，","岁岁泪别常留恨。","若许人间无离愁，","生生世世永相依。"],"n":4,"tags":["离别"],"long":false},{"id":162,"t":"糟糕，是恋爱脑上头","d":"2025-09-20","y":"2025","b":["远方有姝可倾城，","遥望明月遥相思。","天若有情应怜我，","清风几时寄相思？"],"n":4,"tags":["月","相思"],"long":false},{"id":163,"t":"乙已蛇年中秋节望月","d":"2025-10-06","y":"2025","b":["自古人生多寂寞，","每逢佳节倍寥落。","离家千里常怀远，","望月低头泪双行。","嫦娥有恨桂花冷，","玉兔捣药立中宵。","明月天涯起相思，","星河孤影夜微凉。"],"n":8,"tags":["月","相思","离别","花"],"long":false},{"id":164,"t":"银杏落尽有歌","d":"2025-11-10","y":"2025","b":["一夜凋尽银杏叶，","满城冬风瑟瑟寒。","纵有春来枝再绿，","天涯沦落两不知。"],"n":4,"tags":[],"long":false},{"id":165,"t":"卧槽风好大","d":"2025-11-16","y":"2025","b":["一夜狂风卷京城，","疏枝秃尽叶无踪。","韶华易逝如流水，","劝君莫向斜阳叹。"],"n":4,"tags":[],"long":false},{"id":166,"t":"读博感怀","d":"2025-11-20","y":"2025","b":["前路漫漫空蹉跎，","卅年回首尽萧瑟。","歧道嶙峋残月照，","天高海阔更前行。"],"n":4,"tags":["月"],"long":false},{"id":167,"t":"相聚就是缘","d":"2025-12-14","y":"2025","b":["人生多蹉跎，","幸喜遇知己。","浮生萍水逢，","相见不知期。","清风邀明月，","觥筹且交错。","天地皆杯盏，","大梦一万年！"],"n":8,"tags":["月","梦"],"long":false},{"id":168,"t":"午夜痛歌","d":"2025-12-23","y":"2025","b":["孤云残月独酌酒，","星碎万古同此愁。","逝水无尽多断肠，","人间伤心一千年。"],"n":4,"tags":["月","酒"],"long":false},{"id":169,"t":"静待花开","d":"2025-12-28","y":"2025","b":["潜龙在渊鱼虾戏，","十年蛰伏待时机。","他日腾飞上九天，","长吟一声震寰宇。"],"n":4,"tags":[],"long":false},{"id":170,"t":"丙午年初雪","d":"2026-01-17","y":"2026","b":["天宫玉碎坠寰宇，","银装素裹雪皑皑。","风起京城鱼龙舞，","归人迷离不知途。"],"n":4,"tags":["离别","雪"],"long":false},{"id":171,"t":"情人节快乐！","d":"2026-02-13","y":"2026","b":["玄武湖边曾定情，","明城墙上频顾盼。","金风玉露有相逢，","月下相依共流年。","白玉为肤玉作骨，","一笑嫣然羞百花。","愿得佳人红尘老，","朝朝暮暮复朝朝。"],"n":8,"tags":["月","花"],"long":false},{"id":172,"t":"海浪吟","d":"2026-02-17","y":"2026","b":["海天一色极人目，","长风万里有孤帆 。","涛声千年仍如旧，","不见当年捕鱼人。"],"n":4,"tags":[],"long":false},{"id":173,"t":"离别家乡","d":"2026-02-23","y":"2026","b":["离乡背井又一年，","十里春风彻骨寒。","孤灯梦冷人不眠，","还未离乡已思家。","欲问归期语又迟，","回首渺渺叹风尘。","泪痕未干两茫茫，","月满关山望天涯。"],"n":8,"tags":["月","离别","山","梦"],"long":false},{"id":174,"t":"清明登高怀远","d":"2026-04-05","y":"2026","b":["远山叠嶂绕青湖，","登高望远常思乡。","极目欲穷三千里，","且看风高与天清！"],"n":4,"tags":["山"],"long":false},{"id":175,"t":"一人我饮酒醉","d":"2026-04-17","y":"2026","b":["人间清欢别旧梦，","春风不度尽瑟瑟。","雨疏风骤知海棠，","举杯邀月共消愁。"],"n":4,"tags":["月","离别","梦"],"long":false},{"id":176,"t":"思项羽","d":"2026-04-18","y":"2026","b":["千古神勇唯霸王，","乌江一刎别虞姬。","四面楚歌岂无路？","百折不挠尚可期！"],"n":4,"tags":["离别"],"long":false},{"id":177,"t":"未名湖花开","d":"2026-04-25","y":"2026","b":["未名花开又一季，","姹紫嫣红尽开彩。","时光易逝不复回，","忍把韶华付流水？","春风拂面应追春，","莫待空枝叹余晖。","他日回首向来处，","岁岁年年有春归。"],"n":8,"tags":["花"],"long":false},{"id":178,"t":"问天","d":"2026-04-30","y":"2026","b":["人间古今不自由，","苦海无边煮蚀骨。","年少意气欲胜天，","宿命难违满白发。","凭栏远眺水长东，","泪洒满江多少悲？","浮生一刹皆似梦，","苍天悠悠两茫茫。"],"n":8,"tags":["梦"],"long":false},{"id":179,"t":"吃铁锅炖有感","d":"2026-05-08","y":"2026","b":["相视无语话苍凉，","酒入愁肠无处消。","独在客乡叹伶仃，","往事如风不可寻。","山水渺渺人悠悠，","卧听夜雨到天明。","红尘从来多歧路，","万里征途正当时！"],"n":8,"tags":["山","酒"],"long":false},{"id":180,"t":"痛痛痛","d":"2026-05-14","y":"2026","b":["人间沧桑知冷暖，","苦海难渡亦无涯。","来也萧萧去瑟瑟，","回首已是十二年。"],"n":4,"tags":[],"long":false},{"id":181,"t":"长恨歌","d":"2026-05-31","y":"2026","b":["我恨江流不复返，","我恨花谢随流水。","我恨夕阳留不住，","我恨叶枯抱残枝。","我恨清风拂杨柳，","我恨月圆又月缺。","我恨山高路迢迢，","我恨云舒且云卷。","","我恨春来雪皆逝，","我恨夏至无春风，","我恨秋临百花凋，","我恨冬到雁不归。","我恨轮回又一季，","我恨偏我不逢春。","我恨秋风萧瑟悲，","我恨冬雪埋蚀骨。","","我恨海枯石亦烂，","我恨沧海变桑田。","我恨壮士入暮年，","我恨美人叹红颜。","我恨青丝变白发，","我恨往事尽如烟，","我恨万古皆成空，","我恨光阴不相饶。","","我恨日月煎人寿，","我恨命蹇不逢时。","我恨岁月催人老，","我恨魂去杳无影。","我恨坟空草依依，","我恨白雪落白首。","我恨生死两茫茫，","我恨死生不自由。","","我恨相思不相见，","我恨相见却恨晚。","我恨红豆常落泪，","我恨不得共白首。","我恨相爱不得语，","我恨时空把人隔。","我恨情深生怨懑，","我恨人间难圆满。","","我恨明月照今古，","我恨人间常别离。","我恨知交半零落，","我恨好友各东西。","我恨天涯红尘老，","我恨重逢未有期。","我恨孤舟千里远，","我恨归途万里遥。","","我恨故乡远渺渺，","我恨燕归我不归。","我恨惆怅独漂泊，","我恨明月照它乡。","我恨酒醉梦归处，","我恨酒醒太匆匆。","我恨乡音久不听，","我恨沦落望天涯。","","我恨世事不如意，","我恨壮志却难酬。","我恨功名归尘土，","我恨富贵总成空。","我恨物是与人非，","我恨大愿终成空。","我恨才尽江郎老，","我恨青史不留名。","","我恨山河多歧路，","我恨人间多悲欢。","我恨始皇逝沙丘，","我恨霸王不过江。","我恨屈原投湘江，","我恨诸葛逝北伐。","我恨岳飞折深狱，","我恨崇祯挂煤山。","","我恨白起刎杜邮，","我恨去病命早夭。","我恨冯唐老郎官，","我恨李广终难封。","我恨贾谊谪长沙，","我恨阮籍哭穷途。","我恨陆游难平戎，","我恨宗泽呼过河。","","我恨兴亡也勃忽，","我恨盛衰无人逃。","我恨国破山河碎，","我恨苍生尽流血。","我恨王朝轮流换，","我恨黔首遗路骨。","我恨史笔藏血泪，","我恨黎民无留名。","","我恨孔丘恋周礼，","我恨孟子唯道德。","我恨荀子悲性恶，","我恨仲舒黜百家。","我恨朱熹灭人欲，","我恨阳明多主观。","我恨国藩卫旧道，","我恨有为不革命。","","我恨良辰空奈何，","我恨知己半落尘。","我恨少年意气盛，","我恨中年事无成。","我恨志向难伸张，","我恨才学不如人。","我恨孤灯照残影，","我恨此生不由己。","","我恨平生常怯弱，","我恨痴妄不肯醒。","我恨前路多艰险，","我恨行至半途废。","我恨人间无再少，","我恨年华空自许。","我恨浮生皆若梦，","我恨人生难回首。","","我恨天意高难问，","我恨造化多弄人。","我恨人生如朝露，","我恨黄河不复回。","我恨繁华终落尽，","我恨此恨无奈何。","我恨浮生寄逆旅，","我恨人生本无常。"],"n":134,"tags":["月","相思","离别","山","花","梦","雪","酒"],"long":true},{"id":182,"t":"翠竹--青松对和","d":"2026-06-12","y":"2026","b":["风揺竹影动，","劲节傲凌霜。","莫道寒风凛，","依然指碧霄。"],"n":4,"tags":[],"long":false},{"id":183,"t":"忆屈原","d":"2026-06-19","y":"2026","b":["汨罗江上问九天，","千古绝唱唯离骚。","飘零他乡思屈原，","沧浪之水终可清。","日月须鉴人间魂，","风流不改万载留。","孤身行吟烟水畔，","满川风雨正苍茫。"],"n":8,"tags":["月","离别"],"long":false},{"id":184,"t":"梦醒时分","d":"2026-06-20","y":"2026","b":["卧听风雨满京城","不知窗外花飘零。","欲飞九天揽月去，","且看人间多少愁。"],"n":4,"tags":["月","花"],"long":false},{"id":185,"t":"星与月","d":"2026-07-17","y":"2026","b":["长庚深情久伴月，","玉盘依然挂西楼。","漫天清晖照我影，","天涯处处是吾乡。"],"n":4,"tags":["月"],"long":false},{"id":186,"t":"梦醒","d":"2026-07-23","y":"2026","b":["自诩人间谪仙客，","欲上九天摘星辰。","昔日放歌多浪荡，","今朝方叹行路难。","明月依然千秋照，","独对长空万里愁。","梦醒满是荒唐泪，","回首萧瑟叹浮尘。"],"n":8,"tags":["月","梦"],"long":false},{"id":187,"t":"京城寄怀","d":"2026-07-24","y":"2026","b":["素衣千里入京城，","三十年岁风与尘。","本欲乘风上万里，","凤凰折翅徒哀鸣。","月下销魂影已瘦，","何惧红尘三千丈？","人生处处皆风景，","青山依旧我独行。"],"n":8,"tags":["月","山"],"long":false}];
+</script>
+<script>
+(function(){
+  "use strict";
+  // ---- 工具 ----
+  const $ = s => document.querySelector(s);
+  const cn = "〇一二三四五六七八九";
+  const yrCN = y => y.split("").map(d=>cn[+d]).join("");
+  const fmtDate = d => d.replace(/-/g,".");
+  const MOTIFS = ["月","相思","离别","山","花","梦","雪","酒"];
+
+  // 题图：随机一联月之句
+  const couplets = [
+    ["我思绵绵如月光，山高海阔照伊人。","北京中秋夜望月 · 2019"],
+    ["不知明月可寂寞？我有浊酒可慰疗。","我与明月独酌 · 2024"],
+    ["离家千里空望月，愁绪已渡万重山。","北京中秋夜望月 · 2019"],
+    ["茕立望月常怀远，江水潺潺静思帆。","我与明月独酌 · 2024"],
+  ];
+  (function(){
+    const c = couplets[Math.floor(Math.random()*couplets.length)];
+    $("#couplet").innerHTML = c[0].replace("，","，<br>")+'<span class="src">—《'+c[1].split(" · ")[0]+'》'+c[1].split(" · ")[1]+'</span>';
+  })();
+
+  const years = [...new Set(POEMS.map(p=>p.y))].sort();
+  let state = {year:"all", motif:null, q:""};
+
+  // ---- 意象 chips ----
+  const chipsEl = $("#chips");
+  MOTIFS.forEach(m=>{
+    const n = POEMS.filter(p=>p.tags.includes(m)).length;
+    const el = document.createElement("div");
+    el.className = "chip"+(m==="月"?" moon-chip":"");
+    el.innerHTML = m+' <span class="ct">'+n+'</span>';
+    el.onclick = ()=>{ state.motif = state.motif===m?null:m; render(); };
+    el.dataset.m = m;
+    chipsEl.appendChild(el);
+  });
+
+  // ---- 年份 tabs ----
+  const yearsEl = $("#years");
+  const mkYear = (val,label,n)=>{
+    const b=document.createElement("button");
+    b.className="year-btn"; b.dataset.y=val;
+    b.innerHTML=label+(n!=null?' <span class="n">'+n+'</span>':'');
+    b.onclick=()=>{ state.year=val; render(); };
+    return b;
+  };
+  yearsEl.appendChild(mkYear("all","全", POEMS.length));
+  years.forEach(y=>yearsEl.appendChild(mkYear(y, yrCN(y), POEMS.filter(p=>p.y===y).length)));
+
+  // ---- 搜索 ----
+  $("#q").addEventListener("input", e=>{ state.q=e.target.value.trim(); render(); });
+
+  // ---- 渲染目录 ----
+  const grid=$("#grid"), countEl=$("#countline");
+  let filtered=[];
+  function currentList(){
+    return POEMS.filter(p=>{
+      if(state.year!=="all" && p.y!==state.year) return false;
+      if(state.motif && !p.tags.includes(state.motif)) return false;
+      if(state.q){
+        const hay = p.t + " " + p.b.join(" ");
+        if(!hay.includes(state.q)) return false;
+      }
+      return true;
+    });
+  }
+  function render(){
+    // 高亮状态
+    document.querySelectorAll(".chip").forEach(c=>c.classList.toggle("on", c.dataset.m===state.motif));
+    document.querySelectorAll(".year-btn").forEach(b=>b.classList.toggle("on", b.dataset.y===state.year));
+    filtered = currentList();
+    // 计数行
+    let bits=[];
+    bits.push(state.year==="all"?"全集":(yrCN(state.year)+"年"));
+    if(state.motif) bits.push("咏"+state.motif);
+    if(state.q) bits.push("觅「"+state.q+"」");
+    countEl.textContent = bits.join("　·　")+"　—　共 "+filtered.length+" 首";
+    // 卡片
+    grid.innerHTML="";
+    if(!filtered.length){
+      grid.innerHTML='<div class="empty">未见此句。换个字，或换一年再觅。</div>';
+      return;
+    }
+    filtered.forEach(p=>{
+      const first = p.b[0]||"";
+      const dots = p.tags.slice(0,4).map(t=>'<span class="dot'+(t==="月"?" moon":"")+'"></span>').join("");
+      const el=document.createElement("div");
+      el.className="slip"; el.tabIndex=0; el.setAttribute("role","button");
+      el.innerHTML =
+        '<div class="dots">'+dots+'</div>'+
+        '<div class="st">'+p.t+'</div>'+
+        '<div class="sd">'+fmtDate(p.d)+'</div>'+
+        '<div class="sfirst">'+p.b.slice(0,3).join("<br>")+'</div>'+
+        (p.long?'<div class="long">长</div>':'');
+      el.onclick=()=>openReader(p.id);
+      el.onkeydown=e=>{ if(e.key==="Enter"||e.key===" "){e.preventDefault();openReader(p.id);} };
+      grid.appendChild(el);
+    });
+  }
+
+  // ---- 读诗 ----
+  const reader=$("#reader"), sheet=$("#sheet"), poemEl=$("#poem");
+  let curId=null, orient="v";
+  function readingOrder(){ return filtered.length?filtered:POEMS; }
+  function openReader(id){
+    curId=id;
+    const p=POEMS.find(x=>x.id===id);
+    $("#rTitle").textContent=p.t;
+    $("#rDate").textContent=fmtDate(p.d)+(p.long?"　·　长诗":"");
+    // 长诗默认横排更好读
+    orient = p.long ? "h" : "v";
+    applyOrient();
+    renderPoem(p);
+    const list=readingOrder(); const idx=list.findIndex(x=>x.id===id);
+    $("#navMid").textContent = (idx+1)+" / "+list.length;
+    $("#prev").disabled = idx<=0;
+    $("#next").disabled = idx>=list.length-1;
+    reader.classList.add("open");
+    document.body.style.overflow="hidden";
+    sheet.scrollTop=0;
+    $("#close").focus();
+  }
+  function renderPoem(p){
+    poemEl.innerHTML="";
+    p.b.forEach((line,i)=>{
+      const d=document.createElement("div");
+      d.className="pl"; d.textContent=line;
+      d.style.animationDelay=(0.06*i)+"s";
+      poemEl.appendChild(d);
+    });
+  }
+  function applyOrient(){
+    poemEl.className="poem "+orient;
+    $("#vBtn").classList.toggle("on",orient==="v");
+    $("#hBtn").classList.toggle("on",orient==="h");
+  }
+  $("#vBtn").onclick=()=>{orient="v";applyOrient();};
+  $("#hBtn").onclick=()=>{orient="h";applyOrient();};
+  function step(dir){
+    const list=readingOrder(); const idx=list.findIndex(x=>x.id===curId);
+    const ni=idx+dir;
+    if(ni<0||ni>=list.length) return;
+    openReader(list[ni].id);
+  }
+  $("#prev").onclick=()=>step(-1);
+  $("#next").onclick=()=>step(1);
+  function close(){ reader.classList.remove("open"); document.body.style.overflow=""; }
+  $("#close").onclick=close;
+  reader.addEventListener("click",e=>{ if(e.target===reader) close(); });
+  document.addEventListener("keydown",e=>{
+    if(!reader.classList.contains("open")) return;
+    if(e.key==="Escape") close();
+    else if(e.key==="ArrowLeft") step(-1);
+    else if(e.key==="ArrowRight") step(1);
+  });
+
+  render();
+})();
+</script>
